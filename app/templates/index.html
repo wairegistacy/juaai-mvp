@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JuaAI MVP</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: white;
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #111827;
+        }
+
+        .whatsapp-box {
+            background: #e7f7ee;
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid #d8eee0;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #16a34a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .chat-meta h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .chat-meta p {
+            margin: 2px 0 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .bubble {
+            background: white;
+            padding: 14px 16px;
+            border-radius: 16px 16px 16px 4px;
+            max-width: 85%;
+            margin-bottom: 14px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            line-height: 1.5;
+        }
+
+        .bubble-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .composer {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .composer input[type="text"] {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 999px;
+            border: 1px solid #cbd5e1;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .composer button {
+            border: none;
+            background: #16a34a;
+            color: white;
+            padding: 0 22px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .composer button:hover {
+            background: #15803d;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .metric {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .green {
+            color: #15803d;
+        }
+
+        .red {
+            color: #b91c1c;
+        }
+
+        .section-title {
+            margin: 0 0 14px;
+            font-size: 18px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pill-sale {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .pill-purchase {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .success-box {
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 18px;
+        }
+
+        .success-box h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #166534;
+        }
+
+        .success-box p {
+            margin: 6px 0;
+        }
+
+        .alerts-list {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .alerts-list li {
+            margin-bottom: 8px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background: white;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f9fafb;
+            color: #374151;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        tr:hover td {
+            background: #fafafa;
+        }
+
+        .muted {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .composer {
+                flex-direction: column;
+            }
+
+            .composer button {
+                height: 48px;
+            }
+        }
+        #voiceBtn {
+            background: #0f766e;
+        }
+
+        #voiceBtn:hover {
+            background: #115e59;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="hero">
+            <div class="badge">JuaAI MVP Demo</div>
+            <h1>JuaAI</h1>
+            <p>
+                AI-powered financial assistant for informal businesses.
+                Record sales and purchases in natural language, then turn them into
+                bookkeeping, business insights, and stock visibility.
+            </p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>WhatsApp-style Transaction Input</h2>
+
+                <div class="whatsapp-box">
+                    <div class="chat-header">
+                        <div class="avatar">J</div>
+                        <div class="chat-meta">
+                            <h3>JuaAI Assistant</h3>
+                            <p>Online • Ready to record transactions</p>
+                        </div>
+                    </div>
+
+                    <div class="bubble">
+                        <div class="bubble-label">Merchant message</div>
+                        Example: <strong>Sold 5 sodas at 50</strong><br>
+                        Or: <strong>Bought 2 bread at 40</strong>
+                    </div>
+
+                    <form method="post" action="/">
+                        <div class="composer">
+                            <input
+                                type="text"
+                                id="messageInput"
+                                name="message"
+                                placeholder="Type a transaction like 'Sold 5 sodas at 50'"
+                                required
+                            />
+                            <button type="button" id="voiceBtn">🎤 Speak</button>
+                            <button type="submit">Send</button>
+                        </div>
+
+<p class="muted" id="voiceStatus">Tip: You can type or use voice to record a transaction.</p>
+                    </form>
+                </div>
+
+                {% if transaction %}
+                <div class="success-box">
+                    <h3>Transaction recorded ✅</h3>
+                    <p><strong>Type:</strong> {{ transaction.type }}</p>
+                    <p><strong>Product:</strong> {{ transaction.product }}</p>
+                    <p><strong>Quantity:</strong> {{ transaction.quantity }}</p>
+                    <p><strong>Price:</strong> KES {{ transaction.price }}</p>
+                    <p><strong>Total:</strong> KES {{ transaction.total }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="card">
+                <h2>Business Dashboard</h2>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-label">Today's Sales</div>
+                        <div class="metric-value green">KES {{ total_sales }}</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label">Today's Purchases</div>
+                        <div class="metric-value red">KES {{ total_purchases }}</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label">Estimated Profit</div>
+                        <div class="metric-value">KES {{ estimated_profit }}</div>
+                    </div>
+
+                    <div class="metric">
+                        <div class="metric-label">Recent Transactions</div>
+                        <div class="metric-value">{{ transactions|length }}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Top Product Today</div>
+                        <div class="metric-value">
+                            {% if top_product %}
+                                {{ top_product.title() }}
+                            {% else %}
+                                --
+                            {% endif %}
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h2 class="section-title">Credit Readiness Profile</h2>
+                <p><strong>Financial Readiness Score:</strong> {{ readiness_score }}/100</p>
+                <p><strong>Estimated Loan Access:</strong> KES {{ estimated_loan_amount }}</p>
+                <p class="muted">
+                    This score is based on recorded transaction activity, sales performance,
+                    profitability, and consistency of business records.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2 class="section-title">Recent Transactions</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Message</th>
+                            <th>Type</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        {% for item in transactions %}
+                        <tr>
+                            <td>
+                                <strong>{{ item.raw_message }}</strong><br>
+                                <span class="muted">{{ item.created_at }}</span>
+                            </td>
+                            <td>
+                                {% if item.type == "sale" %}
+                                    <span class="pill pill-sale">Sale</span>
+                                {% else %}
+                                    <span class="pill pill-purchase">Purchase</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ item.product }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>KES {{ item.price }}</td>
+                            <td><strong>KES {{ item.total }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">AI Business Insights</h2>
+                {% if insights %}
+                    <ul class="alerts-list">
+                        {% for insight in insights %}
+                            <li>{{ insight }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No insights yet.</p>
+                {% endif %}
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h2 class="section-title">Low Stock Alerts</h2>
+                {% if low_stock %}
+                    <ul class="alerts-list">
+                        {% for item in low_stock %}
+                            <li>
+                                <strong>{{ item.product }}</strong> —
+                                only {{ item.quantity }} left
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No low stock alerts right now.</p>
+                {% endif %}
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Financial Readiness</div>
+                <div class="metric-value">{{ readiness_score }}/100</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Estimated Loan Access</div>
+                <div class="metric-value">KES {{ estimated_loan_amount }}</div>
+            </div>
+
+        </div>
+
+        <div class="footer-note">
+            JuaAI MVP • Natural language bookkeeping for informal businesses
+        </div>
+    </div>
+
+    <script>
+        const voiceBtn = document.getElementById("voiceBtn");
+        const messageInput = document.getElementById("messageInput");
+        const voiceStatus = document.getElementById("voiceStatus");
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = "en-US";
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            voiceBtn.addEventListener("click", () => {
+                voiceStatus.textContent = "Listening... speak your transaction now.";
+                recognition.start();
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                messageInput.value = transcript;
+                voiceStatus.textContent = `Captured: "${transcript}"`;
+            };
+
+            recognition.onerror = (event) => {
+                voiceStatus.textContent = "Voice input failed. Please type the transaction instead.";
+            };
+
+            recognition.onend = () => {
+                if (!messageInput.value) {
+                    voiceStatus.textContent = "Voice input ended. You can try again or type manually.";
+                }
+            };
+        } else {
+            voiceBtn.disabled = true;
+            voiceStatus.textContent = "Voice input is not supported in this browser. Please type your transaction.";
+        }
+    </script>
+
+</body>
+</html>
